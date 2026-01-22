@@ -24,7 +24,9 @@ public class ServerThread extends Thread {
     public void run() {
         try {
             while (!Thread.currentThread().isInterrupted()) {
+                Log.i("SERVER THREAD", "[SERVER THREAD] Waiting for a client invocation...");
                 Socket socket = serverSocket.accept();
+                Log.e("SERVER THREAD", "[SERVER THREAD] A connection request was received from " + socket.getInetAddress() + ":" + socket.getLocalPort());
                 CommunicationThread communicationThread = new CommunicationThread(this,socket);
                 communicationThread.start();
             }

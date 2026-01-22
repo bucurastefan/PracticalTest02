@@ -72,11 +72,12 @@ public class CommunicationThread extends Thread {
                     .url(url)
                     .build();
             Response response = httpclient.newCall(request).execute();
-
+            Log.d("COMMUNICATION THREAD", "[COMMUNICATION THREAD] Mesaj " + response);
             String anagrams = response.body().string();
             JSONObject jsonObject = new JSONObject(anagrams);
             JSONArray anagramsArray = jsonObject.getJSONArray("all");
             StringBuilder result = new StringBuilder();
+            Log.d("COMMUNICATION THREAD", "[COMMUNICATION THREAD] Mesaj " + result);
 
             for (int i = 0; i < anagramsArray.length(); i++) {
                 String currentAnagram = anagramsArray.getString(i);
@@ -84,7 +85,7 @@ public class CommunicationThread extends Thread {
                     result.append(currentAnagram).append("\n");
                 }
             }
-
+            Log.d("COMMUNICATION THREAD", "[COMMUNICATION THREAD] Sending anagrams to client: " + result.toString());
             return result.toString();
         } catch (Exception e) {
             Log.e("COMMUNICATION THREAD", "[COMMUNICATION THREAD] An exception has occurred: " + e.getMessage());
